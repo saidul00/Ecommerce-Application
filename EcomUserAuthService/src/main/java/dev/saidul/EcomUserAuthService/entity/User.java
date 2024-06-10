@@ -15,6 +15,7 @@ public class User extends BaseModel{
     private String email;
     private String phone;
     private String password;
+    private String token;
     @ManyToMany
     private List<Role> roles;
 }
