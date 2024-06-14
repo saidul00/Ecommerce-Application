@@ -5,6 +5,9 @@ import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
 import dev.saidul.EcomPaymentService.configuration.RazorpayClientConfig;
 import dev.saidul.EcomPaymentService.dto.PaymentRequestDTO;
+import dev.saidul.EcomPaymentService.entity.Currency;
+import dev.saidul.EcomPaymentService.entity.Payment;
+import dev.saidul.EcomPaymentService.entity.PaymentStatus;
 import dev.saidul.EcomPaymentService.repository.PaymentRepository;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public String generatePaymentLink(PaymentRequestDTO paymentRequestDTO) throws RazorpayException {
+        savePayment(paymentRequestDTO); //save payment info in DB
         RazorpayClient razorpay = razorpayClientConfig.getRazorpayClient();
         JSONObject paymentLinkRequest = new JSONObject();
         paymentLinkRequest.put("amount", paymentRequestDTO.getAmount());
@@ -43,5 +47,17 @@ public class PaymentServiceImpl implements PaymentService {
         paymentLinkRequest.put("reminder_enable", true);
         PaymentLink payment = razorpay.paymentLink.create(paymentLinkRequest);
         return payment.toString();
+    }
+    private void savePayment(PaymentRequestDTO paymentRequestDTO){
+        Payment payment = new Payment();
+        payment.setAmount(paymentRequestDTO.getAmount());
+        payment.setUserId(paymentRequestDTO.getCustomerId());
+        payment.setOrderId(paymentRequestDTO.getOderId());
+        Currency currency = new Currency();
+        currency.setCurrencyTAG("INR");
+        payment.setCurrency(currency);
+        payment.setPaymentStatus(PaymentStatus.PENDING);
+
+        paymentRepository.save(payment);
     }
 }
