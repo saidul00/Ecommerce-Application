@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RazorpayWebhookController {
     @PostMapping("/webhook/razorpay")
     public ResponseEntity<String> razorPayWebhook(){
+        System.out.println("Razorpay webhook called");
         return ResponseEntity.ok(
                 "OK"
         );

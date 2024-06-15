@@ -8,6 +8,7 @@ import dev.saidul.EcomPaymentService.dto.PaymentRequestDTO;
 import dev.saidul.EcomPaymentService.entity.Currency;
 import dev.saidul.EcomPaymentService.entity.Payment;
 import dev.saidul.EcomPaymentService.entity.PaymentStatus;
+import dev.saidul.EcomPaymentService.repository.CurrencyRepository;
 import dev.saidul.EcomPaymentService.repository.PaymentRepository;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
@@ -17,11 +18,14 @@ import java.time.Instant;
 @Service
 public class PaymentServiceImpl implements PaymentService {
     private final PaymentRepository paymentRepository;
+    private final CurrencyRepository currencyRepository;
     private final RazorpayClientConfig razorpayClientConfig;
 
-    public PaymentServiceImpl(PaymentRepository paymentRepository, RazorpayClientConfig razorpayClientConfig) {
+    public PaymentServiceImpl(PaymentRepository paymentRepository, RazorpayClientConfig razorpayClientConfig,
+                                CurrencyRepository currencyRepository) {
         this.paymentRepository = paymentRepository;
         this.razorpayClientConfig=razorpayClientConfig;
+        this.currencyRepository=currencyRepository;
     }
 
     @Override
@@ -55,6 +59,7 @@ public class PaymentServiceImpl implements PaymentService {
         payment.setOrderId(paymentRequestDTO.getOderId());
         Currency currency = new Currency();
         currency.setCurrencyTAG("INR");
+        currencyRepository.save(currency);
         payment.setCurrency(currency);
         payment.setPaymentStatus(PaymentStatus.PENDING);
 

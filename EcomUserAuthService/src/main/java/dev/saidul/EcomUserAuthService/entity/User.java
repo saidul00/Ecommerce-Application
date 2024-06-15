@@ -2,6 +2,7 @@ package dev.saidul.EcomUserAuthService.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,4 +19,6 @@ public class User extends BaseModel{
     private String token;
     @ManyToMany
     private List<Role> roles;
+    @OneToMany
+    private List<Address> address;
 }
