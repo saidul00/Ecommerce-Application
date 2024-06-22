@@ -1,19 +1,23 @@
 package dev.saidul.EcomProductService.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product extends BaseModel{
     private String title;
-    private double price;
     private String description;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @JoinColumn(name = "category")
     private Category category;
+    private double price;
     private String imageURL;
-    private double rating;
+    private int inventoryCount;
 }

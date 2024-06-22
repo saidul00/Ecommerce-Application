@@ -12,7 +12,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Cart extends BaseModel{
-    private UUID userid;
+    private UUID userId;
     @OneToMany
     private List<CartItem> cartItem;
 }

@@ -11,5 +11,6 @@ import java.util.UUID;
 @Setter
 public class CartItem extends BaseModel{
     private UUID productId;
+    private String title;
     private int quantity;
 }
