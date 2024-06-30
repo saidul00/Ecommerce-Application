@@ -13,5 +13,4 @@ public class OrderItem extends BaseModel{
     private UUID  productId;
     private int quantity;
     private double price;
-    private double totalPrice;
 }

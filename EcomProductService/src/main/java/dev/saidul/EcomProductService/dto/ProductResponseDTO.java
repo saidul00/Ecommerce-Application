@@ -24,7 +24,6 @@ public class ProductResponseDTO {
         responseDTO.setDescription(product.getDescription());
         responseDTO.setCategory(CategoryResponseDTO.from(product.getCategory()).getName());
         responseDTO.setImageURL(product.getImageURL());
-        responseDTO.setRating(product.getRating());
         return responseDTO;
     }
 }

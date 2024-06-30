@@ -5,6 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PaymentDetailsDTO {
-    private String paymentMethod;
+public class UpdateOrderStatusDTO {
+    private String newStatus;
 }

@@ -32,7 +32,6 @@ public class ProductServiceImpl implements ProductService{
                 ()-> new CategoryNotFoundException("Category not  found")
         ));
         product.setImageURL(productCreationDTO.getImageURL());
-        product.setRating(0);
         return ProductResponseDTO.from(productRepository.save(product));
     }
 

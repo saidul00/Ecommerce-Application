@@ -4,11 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
-public class OrderRequestDTO {
+public class NewOrderRequestDTO {
+    private UUID userId;
     private List<OrderItemDTO> items;
-    private PaymentDetailsDTO paymentDetails;
-    private ShippingDetailsDTO shippingDetails;
+    private double total;
 }
