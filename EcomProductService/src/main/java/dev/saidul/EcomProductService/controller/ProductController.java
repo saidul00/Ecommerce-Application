@@ -6,6 +6,7 @@ import dev.saidul.EcomProductService.service.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -29,5 +30,12 @@ public class ProductController {
         return ResponseEntity.ok(
                 productService.getProductById(id)
         );
+    }
+
+
+    //admin privilege required to access this API
+    @GetMapping("/all")
+    public ResponseEntity<List<ProductResponseDTO>> getAllProduct(){
+
     }
 }

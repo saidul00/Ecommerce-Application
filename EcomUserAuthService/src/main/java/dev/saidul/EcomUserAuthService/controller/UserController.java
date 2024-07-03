@@ -1,14 +1,13 @@
 package dev.saidul.EcomUserAuthService.controller;
 
-import dev.saidul.EcomUserAuthService.dto.UserLoginRequestDTO;
-import dev.saidul.EcomUserAuthService.dto.UserResponseDTO;
-import dev.saidul.EcomUserAuthService.dto.UserSignupRequestDTO;
+import dev.saidul.EcomUserAuthService.dto.UserDTO;
+import dev.saidul.EcomUserAuthService.dto.UserRolesRequestDTO;
 import dev.saidul.EcomUserAuthService.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/user")
@@ -18,18 +17,15 @@ public class UserController {
         this.userService=userService;
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<UserResponseDTO> signup(@RequestBody UserSignupRequestDTO signupRequestDTO){
-        return ResponseEntity.ok(
-                userService.signup(signupRequestDTO)
-        );
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDTO> getUserDetails(@PathVariable("id")UUID userId){
+        UserDTO userDTO = userService.getUserDetails(userId);
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<UserResponseDTO> login(@RequestBody UserLoginRequestDTO loginRequestDTO){
-        return ResponseEntity.ok(
-                userService.login(loginRequestDTO)
-        );
-    }
 
+    @PostMapping("/{id}/roles")
+    public ResponseEntity<UserDTO> setUserRoles(@PathVariable("id") UUID userId, @RequestBody UserRolesRequestDTO rolesRequestDTO){
+        return null;
+    }
 }

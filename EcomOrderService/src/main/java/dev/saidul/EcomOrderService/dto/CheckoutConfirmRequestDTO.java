@@ -10,5 +10,4 @@ import java.util.UUID;
 public class CheckoutConfirmRequestDTO {
     private UUID orderId;
     private ShippingAddressDTO shippingDetails;
-    private PaymentDTO paymentDetails;
 }

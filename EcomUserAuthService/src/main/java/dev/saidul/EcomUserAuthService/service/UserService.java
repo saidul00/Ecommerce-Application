@@ -1,10 +1,11 @@
 package dev.saidul.EcomUserAuthService.service;
 
-import dev.saidul.EcomUserAuthService.dto.UserLoginRequestDTO;
-import dev.saidul.EcomUserAuthService.dto.UserResponseDTO;
-import dev.saidul.EcomUserAuthService.dto.UserSignupRequestDTO;
+import dev.saidul.EcomUserAuthService.dto.UserDTO;
+
+import java.util.UUID;
 
 public interface UserService {
-    UserResponseDTO signup(UserSignupRequestDTO signupRequestDTO);
-    UserResponseDTO login(UserLoginRequestDTO loginRequestDTO);
+    UserDTO getUserDetails(UUID userId);
+    UserDTO setUserRoles(UUID userId,UUID roleId);
+
 }

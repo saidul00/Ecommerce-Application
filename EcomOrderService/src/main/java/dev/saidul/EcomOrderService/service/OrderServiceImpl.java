@@ -67,7 +67,8 @@ public class OrderServiceImpl implements OrderService{
             default -> throw new IllegalArgumentException("Unexpected order status: "+orderStatus);
         }
 
-        return null;
+        Order updatedOrder = orderRepository.save(savedOrder);
+        return OrderResponseDTO.from(updatedOrder);
     }
 
     @Override
