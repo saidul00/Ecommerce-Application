@@ -1,5 +1,6 @@
 package dev.saidul.EcomProductService.service;
 
+import dev.saidul.EcomProductService.authclient.dto.ValidateTokenResponseDTO;
 import dev.saidul.EcomProductService.dto.ProductCreationDTO;
 import dev.saidul.EcomProductService.dto.ProductResponseDTO;
 import dev.saidul.EcomProductService.entity.Product;
@@ -9,6 +10,7 @@ import dev.saidul.EcomProductService.repository.CategoryRepository;
 import dev.saidul.EcomProductService.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -41,5 +43,12 @@ public class ProductServiceImpl implements ProductService{
                 ()-> new ProductNotFoundException("Product not found")
         );
         return ProductResponseDTO.from(savedProduct);
+    }
+
+    @Override
+    public List<ProductResponseDTO> getAllProduct(){
+        List<Product> allProduct = productRepository.findAll();
+
+        return allProduct.stream().map(ProductResponseDTO::from).toList();
     }
 }

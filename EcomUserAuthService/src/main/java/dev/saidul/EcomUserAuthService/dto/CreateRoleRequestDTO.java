@@ -9,5 +9,4 @@ import java.util.UUID;
 @Setter
 public class CreateRoleRequestDTO {
     private String roleName;
-    private UUID roleId;
 }

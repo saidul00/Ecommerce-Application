@@ -1,10 +1,7 @@
 package dev.saidul.EcomUserAuthService.service;
 
 import dev.saidul.EcomUserAuthService.config.JwtUtil;
-import dev.saidul.EcomUserAuthService.dto.UserDTO;
-import dev.saidul.EcomUserAuthService.dto.UserLoginRequestDTO;
-import dev.saidul.EcomUserAuthService.dto.UserSignupRequestDTO;
-import dev.saidul.EcomUserAuthService.dto.ValidateTokenRequestDTO;
+import dev.saidul.EcomUserAuthService.dto.*;
 import dev.saidul.EcomUserAuthService.entity.Session;
 import dev.saidul.EcomUserAuthService.entity.SessionStatus;
 import dev.saidul.EcomUserAuthService.entity.User;
@@ -81,19 +78,27 @@ public class AuthServiceImpl implements AuthService{
         );
     }
 
-    public SessionStatus validate(ValidateTokenRequestDTO validateTokenRequestDTO){
+    public ValidateTokenResponseDTO validate(ValidateTokenRequestDTO validateTokenRequestDTO){
         Optional<Session> sessionOptional = sessionRepository.findByTokenAndUserId(validateTokenRequestDTO.getToken(),
                 validateTokenRequestDTO.getUserId());
 
         if(sessionOptional.isEmpty()){
-            return SessionStatus.INVALID;
+            return null;
         }
 
         Session session = sessionOptional.get();
         if(!session.getSessionStatus().equals(SessionStatus.ACTIVE)){
-            return SessionStatus.EXPIRED;
+            return null;
         }
 
-        return SessionStatus.ACTIVE;
+        User user = userRepository.findById(validateTokenRequestDTO.getUserId()).get();
+        UserDTO userDTO = UserDTO.from(user);
+        ValidateTokenResponseDTO tokenResponseDTO = new ValidateTokenResponseDTO();
+        tokenResponseDTO.setSessionStatus(session.getSessionStatus());
+        tokenResponseDTO.setUserDTO(userDTO);
+
+
+        return tokenResponseDTO;
+
     }
 }

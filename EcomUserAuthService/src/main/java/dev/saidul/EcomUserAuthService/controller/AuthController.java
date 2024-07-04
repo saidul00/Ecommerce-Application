@@ -1,9 +1,6 @@
 package dev.saidul.EcomUserAuthService.controller;
 
-import dev.saidul.EcomUserAuthService.dto.UserLoginRequestDTO;
-import dev.saidul.EcomUserAuthService.dto.UserDTO;
-import dev.saidul.EcomUserAuthService.dto.UserSignupRequestDTO;
-import dev.saidul.EcomUserAuthService.dto.ValidateTokenRequestDTO;
+import dev.saidul.EcomUserAuthService.dto.*;
 import dev.saidul.EcomUserAuthService.entity.SessionStatus;
 import dev.saidul.EcomUserAuthService.service.AuthService;
 import org.springframework.http.HttpStatus;
@@ -36,8 +33,14 @@ public class AuthController {
     }
 
     @PostMapping("/validate")
-    public ResponseEntity<SessionStatus> validate(@RequestBody ValidateTokenRequestDTO validateTokenRequestDTO){
-        SessionStatus sessionStatus = authService.validate(validateTokenRequestDTO);
-        return new ResponseEntity<>(sessionStatus,HttpStatus.OK);
+    public ResponseEntity<ValidateTokenResponseDTO> validate(@RequestBody ValidateTokenRequestDTO validateTokenRequestDTO){
+        ValidateTokenResponseDTO responseDTO = authService.validate(validateTokenRequestDTO);
+
+        if(responseDTO==null){
+            ValidateTokenResponseDTO response = new ValidateTokenResponseDTO();
+            response.setSessionStatus(SessionStatus.INVALID);
+            return new ResponseEntity<>(response,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(responseDTO,HttpStatus.OK);
     }
 }

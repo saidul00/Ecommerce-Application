@@ -24,8 +24,12 @@ public class UserController {
     }
 
 
-    @PostMapping("/{id}/roles")
-    public ResponseEntity<UserDTO> setUserRoles(@PathVariable("id") UUID userId, @RequestBody UserRolesRequestDTO rolesRequestDTO){
-        return null;
+    @PostMapping("/setrole")
+    public ResponseEntity<UserDTO> setUserRoles(@RequestBody UserRolesRequestDTO userRolesRequestDTO){
+        UserDTO userDTO = userService.setUserRoles(userRolesRequestDTO);
+
+        return ResponseEntity.ok(
+                userDTO
+        );
     }
 }

@@ -22,7 +22,7 @@ public class ProductResponseDTO {
         responseDTO.setTitle(product.getTitle());
         responseDTO.setPrice(product.getPrice());
         responseDTO.setDescription(product.getDescription());
-        responseDTO.setCategory(CategoryResponseDTO.from(product.getCategory()).getName());
+        //responseDTO.setCategory(CategoryResponseDTO.from(product.getCategory()).getName());
         responseDTO.setImageURL(product.getImageURL());
         return responseDTO;
     }
