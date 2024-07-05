@@ -1,6 +1,5 @@
 package dev.saidul.EcomUserAuthService.service;
 
-import dev.saidul.EcomUserAuthService.config.JwtUtil;
 import dev.saidul.EcomUserAuthService.dto.*;
 import dev.saidul.EcomUserAuthService.entity.Session;
 import dev.saidul.EcomUserAuthService.entity.SessionStatus;
@@ -10,9 +9,10 @@ import dev.saidul.EcomUserAuthService.exception.UserAlreadyExistException;
 import dev.saidul.EcomUserAuthService.exception.UserNotFoundException;
 import dev.saidul.EcomUserAuthService.repository.SessionRepository;
 import dev.saidul.EcomUserAuthService.repository.UserRepository;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMapAdapter;
 
@@ -21,16 +21,15 @@ import java.util.Optional;
 
 @Service
 public class AuthServiceImpl implements AuthService{
-    private final BCryptPasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final SessionRepository sessionRepository;
-    private final JwtUtil jwtUtil;
+    private final PasswordEncoder passwordEncoder;
+
     public AuthServiceImpl(UserRepository userRepository, SessionRepository sessionRepository,
-                           JwtUtil jwtUtil){
+                           PasswordEncoder passwordEncoder){
         this.userRepository=userRepository;
-        this.passwordEncoder=new BCryptPasswordEncoder();
+        this.passwordEncoder=passwordEncoder;
         this.sessionRepository=sessionRepository;
-        this.jwtUtil=jwtUtil;
     }
 
     public UserDTO signup(UserSignupRequestDTO signupRequestDTO){
@@ -59,7 +58,7 @@ public class AuthServiceImpl implements AuthService{
             throw new InvalidCredentialsException("Invalid password");
         }
 
-        String token = jwtUtil.generateToken(user.getId().toString());
+        String token = RandomStringUtils.randomAscii(20);
 
         MultiValueMapAdapter<String,String> headers = new MultiValueMapAdapter<>(new HashMap<>());
         headers.add("AUTH_TOKEN", token);
