@@ -24,23 +24,14 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<UserDTO> login(@RequestBody UserLoginRequestDTO userLoginRequestDTO){
-        return authService.login(userLoginRequestDTO);
+        UserDTO userDTO = authService.login(userLoginRequestDTO);
+        return ResponseEntity.ok(
+                userDTO
+        );
     }
 
     @PostMapping("/logout")
     public ResponseEntity<UserDTO> logout(@RequestBody UserLoginRequestDTO userLoginRequestDTO){
         return  null;
-    }
-
-    @PostMapping("/validate")
-    public ResponseEntity<ValidateTokenResponseDTO> validate(@RequestBody ValidateTokenRequestDTO validateTokenRequestDTO){
-        ValidateTokenResponseDTO responseDTO = authService.validate(validateTokenRequestDTO);
-
-        if(responseDTO==null){
-            ValidateTokenResponseDTO response = new ValidateTokenResponseDTO();
-            response.setSessionStatus(SessionStatus.INVALID);
-            return new ResponseEntity<>(response,HttpStatus.OK);
-        }
-        return new ResponseEntity<>(responseDTO,HttpStatus.OK);
     }
 }

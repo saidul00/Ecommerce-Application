@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @JsonDeserialize
 @NoArgsConstructor
@@ -23,6 +24,8 @@ public class CustomUserDetails implements UserDetails {
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
     private boolean enabled;
+    private UUID userId;
+
 
 
 
@@ -41,9 +44,12 @@ public class CustomUserDetails implements UserDetails {
         this.accountNonLocked = true;
         this.credentialsNonExpired = true;
         this.enabled = true;
-
+        this.userId = user.getId();
     }
 
+    public UUID getUserId() {
+        return userId;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

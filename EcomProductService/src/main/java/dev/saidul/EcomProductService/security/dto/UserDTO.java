@@ -1,4 +1,4 @@
-package dev.saidul.EcomProductService.authclient.dto;
+package dev.saidul.EcomProductService.security.dto;
 
 import lombok.Getter;
 import lombok.Setter;

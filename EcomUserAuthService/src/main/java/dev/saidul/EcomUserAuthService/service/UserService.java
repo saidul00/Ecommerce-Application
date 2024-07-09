@@ -6,7 +6,7 @@ import dev.saidul.EcomUserAuthService.dto.UserRolesRequestDTO;
 import java.util.UUID;
 
 public interface UserService {
-    UserDTO getUserDetails(UUID userId);
+    UserDTO getUserDetails(String email);
     UserDTO setUserRoles(UserRolesRequestDTO requestDTO);
 
 }

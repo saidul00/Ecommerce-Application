@@ -6,6 +6,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface AuthService {
     UserDTO signup(UserSignupRequestDTO signupRequestDTO);
-    ResponseEntity<UserDTO> login(UserLoginRequestDTO loginRequestDTO);
-    ValidateTokenResponseDTO validate(ValidateTokenRequestDTO validateTokenRequestDTO);
+    UserDTO login(UserLoginRequestDTO loginRequestDTO);
 }

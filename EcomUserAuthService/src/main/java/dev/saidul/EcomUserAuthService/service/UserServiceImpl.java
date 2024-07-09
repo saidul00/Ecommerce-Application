@@ -21,8 +21,8 @@ public class UserServiceImpl implements UserService{
         this.roleRepository=roleRepository;
     }
 
-    public UserDTO getUserDetails(UUID userId){
-        User savedUser = userRepository.findById(userId).orElseThrow(
+    public UserDTO getUserDetails(String email){
+        User savedUser = userRepository.findByEmail(email).orElseThrow(
                 ()-> new UserNotFoundException("User not found")
         );
         return UserDTO.from(savedUser);

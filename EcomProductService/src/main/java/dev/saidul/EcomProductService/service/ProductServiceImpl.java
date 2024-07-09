@@ -1,6 +1,5 @@
 package dev.saidul.EcomProductService.service;
 
-import dev.saidul.EcomProductService.authclient.dto.ValidateTokenResponseDTO;
 import dev.saidul.EcomProductService.dto.ProductCreationDTO;
 import dev.saidul.EcomProductService.dto.ProductResponseDTO;
 import dev.saidul.EcomProductService.entity.Product;

@@ -1,7 +1,7 @@
-package dev.saidul.EcomProductService.authclient;
+package dev.saidul.EcomProductService.security;
 
-import dev.saidul.EcomProductService.authclient.dto.ValidateTokenRequestDTO;
-import dev.saidul.EcomProductService.authclient.dto.ValidateTokenResponseDTO;
+import dev.saidul.EcomProductService.security.dto.ValidateTokenRequestDTO;
+import dev.saidul.EcomProductService.security.dto.ValidateTokenResponseDTO;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;

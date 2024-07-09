@@ -17,9 +17,9 @@ public class UserController {
         this.userService=userService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getUserDetails(@PathVariable("id")UUID userId){
-        UserDTO userDTO = userService.getUserDetails(userId);
+    @GetMapping("/{email}")
+    public ResponseEntity<UserDTO> getUserDetails(@PathVariable("email")String email){
+        UserDTO userDTO = userService.getUserDetails(email);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 

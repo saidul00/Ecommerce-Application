@@ -1,9 +1,9 @@
 package dev.saidul.EcomProductService.controller;
 
-import dev.saidul.EcomProductService.authclient.AuthenticationClient;
-import dev.saidul.EcomProductService.authclient.dto.Role;
-import dev.saidul.EcomProductService.authclient.dto.SessionStatus;
-import dev.saidul.EcomProductService.authclient.dto.ValidateTokenResponseDTO;
+import dev.saidul.EcomProductService.security.AuthenticationClient;
+import dev.saidul.EcomProductService.security.dto.Role;
+import dev.saidul.EcomProductService.security.dto.SessionStatus;
+import dev.saidul.EcomProductService.security.dto.ValidateTokenResponseDTO;
 import dev.saidul.EcomProductService.dto.ProductCreationDTO;
 import dev.saidul.EcomProductService.dto.ProductResponseDTO;
 import dev.saidul.EcomProductService.service.ProductService;
@@ -43,27 +43,7 @@ public class ProductController {
 
     //admin privilege required to access this API
     @GetMapping("/all")
-    public ResponseEntity<List<ProductResponseDTO>> getAllProduct(@Nullable@RequestHeader("AUTH_TOKEN") String token,
-                                                                  @Nullable@RequestHeader("USER_ID") UUID userId){
-        if(token==null || userId==null){
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
-        ValidateTokenResponseDTO tokenResponseDTO = authenticationClient.validate(token,userId);
-
-        if(tokenResponseDTO.getSessionStatus().equals(SessionStatus.INVALID)){
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
-
-        boolean isUserAdmin = false;
-        for(Role role:tokenResponseDTO.getUserDTO().getRoles()){
-            if (role.getRole().equals("ADMIN")) {
-                isUserAdmin = true;
-                break;
-            }
-        }
-        if(!isUserAdmin){
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
+    public ResponseEntity<List<ProductResponseDTO>> getAllProduct(){
         List<ProductResponseDTO> responseDTOS = productService.getAllProduct();
         return ResponseEntity.ok(
                 responseDTOS
